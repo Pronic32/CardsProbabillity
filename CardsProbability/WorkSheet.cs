@@ -535,7 +535,6 @@ namespace CardsProbability
 
       if (SelectedCard != null)  // вся прорисовка (=
       {
-        Text += SelectedCard.Name;
         if (e.X >= SelectedCard.X &&         // двойной клик по уже выбранной карте                         
             e.Y >= SelectedCard.Y &&
             e.X <= SelectedCard.X + SelectedCard.Width &&

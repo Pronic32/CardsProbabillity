@@ -114,7 +114,7 @@ namespace CardsProbability
     private void btn_addEvent_Click(object sender, EventArgs e)
     {
 
-      string eventName = Microsoft.VisualBasic.Interaction.InputBox("Укажите название события:", "Cards Probability", "");
+      string eventName = Microsoft.VisualBasic.Interaction.InputBox("Укажите название события:", "Cards Probability", "Событие "+ (lstbx_events.Items.Count + 1));
       if (eventName == "") return;
       WorkSheet ExperienceSheet = new WorkSheet();
       ExperienceSheet.ShowDialog();

@@ -45,7 +45,7 @@ namespace CardsProbability
       {
         case EventClassificaions.Obviously:
           {
-            Result = EventRates.ReversedArrangements(CardsCount, Total);
+            Result = EventRates.ReversedArrangements(CardsCount, Total); 
             break;
           }
         case EventClassificaions.OneType:
@@ -98,10 +98,7 @@ namespace CardsProbability
     }
 
 
-    /// <summary>
-    /// Определяет классификацию события по набору карт
-    /// </summary>
-    /// <returns>Классификация события</returns>
+
 
     // Сделать потом по-людски, через методы List или как там еще делают
     /*
@@ -109,6 +106,10 @@ namespace CardsProbability
      * Сейчас главное сделать стабильно работающий алгоритм. Потом займусь оптимизацией. Да, о ней нужно думать сразу.
      * Да, она нужна даже в рамках нашего маленького по вычислений проекта. Это скорее эстетика. Вернусь к ней позже за чашкой кофе
      */
+    /// <summary>
+    /// Определяет классификацию события по набору карт
+    /// </summary>
+    /// <returns>Классификация события</returns>
     private EventClassificaions defineEventClassification(out byte[] args)
     {
       args = null;

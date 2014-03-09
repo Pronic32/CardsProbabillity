@@ -221,8 +221,8 @@ namespace CardsProbability
       }
       if ((ErrorMessage == "") && CardsSum > Extracted)
         ErrorMessage = "Нельзя получить " + CardsSum + " карт из " + Extracted + " извлеченных";
-      if ((ErrorMessage == "") && Extracted + 4 * CardsAmount.Length - TotalCardsAmount > CardsSum)
-        ErrorMessage = "Будет вытащенно не менее чем " + (Extracted + 4 * CardsAmount.Length - TotalCardsAmount) + " карт заданных типов";
+          if ((ErrorMessage == "") && Extracted + 4 * CardsAmount.Length - TotalCardsAmount > CardsSum)
+          ErrorMessage = "Будет вытащенно не менее чем " + (Extracted + 4 * CardsAmount.Length - TotalCardsAmount) + " карт заданных типов";
       if (ErrorMessage == "")
       {
         Result.Numerator = Binomial(Convert.ToByte(Extracted - CardsSum), Convert.ToByte(TotalCardsAmount - 4 * CardsAmount.Length));
