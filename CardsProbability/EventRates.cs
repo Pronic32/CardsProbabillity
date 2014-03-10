@@ -107,9 +107,9 @@ namespace CardsProbability
     {
       ErrorMessage = "";
       if (Extracted < OneSuitCardsAmount)
-        ErrorMessage = "Число карт одной масти не может быть меньше количества вынутых карт";
-      if (Extracted + TotalCardsAmount / 4 - OneSuitCardsAmount > TotalCardsAmount)
-        ErrorMessage = "Неосуществимое условие, при " + Extracted + " вынутых картах будет вытащено не менее чем " + (Extracted + TotalCardsAmount / 4 - TotalCardsAmount) + " карт одной масти";
+        ErrorMessage = "Число карт одной масти не может быть больше количества вынутых карт";
+      if (Extracted - 3 * TotalCardsAmount / 4 > OneSuitCardsAmount )
+        ErrorMessage = "Неосуществимое условие, при " + Extracted + " вынутых картах будет вытащено не менее чем " + (Extracted - 3 * TotalCardsAmount / 4) + " карт одной масти";
       if (OneSuitCardsAmount > TotalCardsAmount / 4)
         ErrorMessage = "Существует всего " + TotalCardsAmount / 4 + " карты каждой масти";
       if (Extracted > TotalCardsAmount)
@@ -156,8 +156,8 @@ namespace CardsProbability
       ErrorMessage = "";
       if (Extracted < OneColorCardsAmount)
         ErrorMessage = "Число карт одного цвета не может быть меньше количества вынутых карт";
-      if (Extracted + Convert.ToByte(TotalCardsAmount / 2) - OneColorCardsAmount > TotalCardsAmount)
-        ErrorMessage = "Неосуществимое условие, при " + Extracted + " вынутых картах будет вытащено не менее чем " + (Extracted + Convert.ToByte(TotalCardsAmount / 2) - TotalCardsAmount) + " карт одного цвета";
+      if (Extracted - TotalCardsAmount / 2 > OneColorCardsAmount)
+        ErrorMessage = "Неосуществимое условие, при " + Extracted + " вынутых картах будет вытащено не менее чем " + (Extracted - TotalCardsAmount / 2) + " карт одного цвета";
       if (OneColorCardsAmount > Convert.ToByte(TotalCardsAmount / 2))
         ErrorMessage = "Существует всего " + Convert.ToByte(TotalCardsAmount / 2) + " карт каждого цвета";
       if (Extracted > TotalCardsAmount)
@@ -206,6 +206,7 @@ namespace CardsProbability
       if (TotalCardsAmount / 4 < CardsAmount.Length)
         ErrorMessage = "В колоде из " + TotalCardsAmount + " карт может быть не более " + TotalCardsAmount / 4 + " типов карт";
       int CardsSum = 0;
+      int minCardsAmount = 0;
       if (ErrorMessage == "")
       {
         for (int i = 0; i < CardsAmount.Length; i++)
@@ -217,12 +218,14 @@ namespace CardsProbability
             ErrorMessage = "В колоде не может быть более 4 карт одного типа";
             break;
           }
+          if (minCardsAmount > CardsAmount[i])
+              minCardsAmount = CardsAmount[i];
         }
       }
       if ((ErrorMessage == "") && CardsSum > Extracted)
         ErrorMessage = "Нельзя получить " + CardsSum + " карт из " + Extracted + " извлеченных";
-          if ((ErrorMessage == "") && Extracted + 4 * CardsAmount.Length - TotalCardsAmount > CardsSum)
-          ErrorMessage = "Будет вытащенно не менее чем " + (Extracted + 4 * CardsAmount.Length - TotalCardsAmount) + " карт заданных типов";
+      if ((ErrorMessage == "") && Extracted + 4 - TotalCardsAmount > minCardsAmount)
+          ErrorMessage = "Будет вытащенно не менее чем " + (Extracted + 4 - TotalCardsAmount) + " карты каждого типа";
       if (ErrorMessage == "")
       {
         Result.Numerator = Binomial(Convert.ToByte(Extracted - CardsSum), Convert.ToByte(TotalCardsAmount - 4 * CardsAmount.Length));
@@ -253,6 +256,7 @@ namespace CardsProbability
       if (2 < CardsAmount.Length)
         ErrorMessage = "В любой колоде всего 2 цвета карт";
       int CardsSum = 0;
+      int minCardsAmount = 0;
       if (ErrorMessage == "")
       {
         for (int i = 0; i < CardsAmount.Length; i++)
@@ -263,13 +267,15 @@ namespace CardsProbability
           {
             ErrorMessage = "В колоде не может быть более " + TotalCardsAmount / 2 + " карт одного цвета";
             break;
-          }
+          }            
+          if (minCardsAmount > CardsAmount[i])
+              minCardsAmount = CardsAmount[i];
         }
       }
       if ((ErrorMessage == "") && CardsSum > Extracted)
         ErrorMessage = "Нельзя получить " + CardsSum + " карт из " + Extracted + " извлеченных";
-      if ((ErrorMessage == "") && Extracted + TotalCardsAmount / 2 * CardsAmount.Length - TotalCardsAmount > CardsSum)
-        ErrorMessage = "Будет вытащенно не менее чем " + (Extracted + TotalCardsAmount / 2 * CardsAmount.Length - TotalCardsAmount) + " карт заданных цветов";
+      if ((ErrorMessage == "") && Extracted - TotalCardsAmount / 2 > minCardsAmount)
+        ErrorMessage = "Будет вытащенно не менее чем " + (Extracted - TotalCardsAmount / 2 - TotalCardsAmount) + " карт заданных цветов";
       if (ErrorMessage == "")
       {
         Result.Numerator = Binomial(Convert.ToByte(Extracted - CardsSum), Convert.ToByte(TotalCardsAmount - TotalCardsAmount / 2 * CardsAmount.Length));
@@ -300,6 +306,7 @@ namespace CardsProbability
       if (4 < CardsAmount.Length)
         ErrorMessage = "В любой колоде всего 4 масти";
       int CardsSum = 0;
+      int minCardsAmount = 0;
       if (ErrorMessage == "")
       {
         for (int i = 0; i < CardsAmount.Length; i++)
@@ -311,12 +318,14 @@ namespace CardsProbability
             ErrorMessage = "В колоде не может быть более " + TotalCardsAmount / 4 + " карт одной масти";
             break;
           }
+          if (minCardsAmount > CardsAmount[i])
+              minCardsAmount = CardsAmount[i];
         }
       }
       if ((ErrorMessage == "") && CardsSum > Extracted)
         ErrorMessage = "Нельзя получить " + CardsSum + " карт из " + Extracted + " извлеченных";
-      if ((ErrorMessage == "") && Extracted + TotalCardsAmount / 4 * CardsAmount.Length - TotalCardsAmount > CardsSum)
-        ErrorMessage = "Будет вытащенно не менее чем " + (Extracted + TotalCardsAmount / 4 * CardsAmount.Length - TotalCardsAmount) + " карт заданных цветов";
+      if ((ErrorMessage == "") && Extracted - 3 * TotalCardsAmount / 4 > minCardsAmount)
+          ErrorMessage = "Будет вытащенно не менее чем " + (Extracted - 3 * TotalCardsAmount / 4) + " карт каждой масти";
       if (ErrorMessage == "")
       {
         Result.Numerator = Binomial(Convert.ToByte(Extracted - CardsSum), Convert.ToByte(TotalCardsAmount - TotalCardsAmount / 4 * CardsAmount.Length));
