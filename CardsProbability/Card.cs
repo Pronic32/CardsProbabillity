@@ -1,9 +1,7 @@
-﻿//using System;
-<<<<<<< HEAD
-//using System.Collections.Generic;
-=======
+﻿using System;
+using System.Color;
 using System.Collections.Generic;
->>>>>>> 01d7497e9c0565c6a4ac3d95c02dd1905c848028
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
